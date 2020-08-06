@@ -9,14 +9,14 @@ from models.CUTIEv1 import CUTIERes as CUTIEv1
 c_threshold = 0.5
 
 def predict(json_data):
-    data_loader = DataLoader(model_params, json_data, update_dict=False, load_dictionary=True) # yaha pe params update karne hai
+    data_loader = DataLoader(model_params, json_data, update_dict=False, load_dictionary=True)
 
     num_words = max(20000, data_loader.num_words)
 
     num_classes = data_loader.num_classes
 
     # model
-    network = CUTIEv1(num_words, num_classes, model_params)       # yaha oe model_params dekhna padega
+    network = CUTIEv1(num_words, num_classes, model_params)
 
     model_output = network.get_output('softmax')
 
