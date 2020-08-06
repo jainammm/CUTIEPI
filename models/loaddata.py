@@ -28,8 +28,8 @@ class DataLoader:
         self.da_extra_rows = params.data_augmentation_extra_rows if hasattr(params, 'data_augmentation_extra_rows') else 0 # randomly expand rows/cols
         self.da_extra_cols = params.data_augmentation_extra_cols if hasattr(params, 'data_augmentation_extra_cols') else 0 # randomly expand rows/cols
         self.augment_strategy = params.augment_strategy if hasattr(params, 'augment_strategy') else 1
-        self.rows_target = params.rows_target if hasattr(params, 'rows_target') else 64 
-        self.cols_target = params.cols_target if hasattr(params, 'cols_target') else 64 
+        self.rows_target = params.rows_target if hasattr(params, 'rows_target') else 80 
+        self.cols_target = params.cols_target if hasattr(params, 'cols_target') else 80 
         self.rows_ulimit = params.rows_ulimit if hasattr(params, 'rows_ulimit') else 80 # handle OOM, must be multiple of self.encoding_factor
         self.cols_ulimit = params.cols_ulimit if hasattr(params, 'cols_ulimit') else 80 # handle OOM, must be multiple of self.encoding_factor
         
@@ -59,6 +59,9 @@ class DataLoader:
             'TOTAL_INVOICE_AMOUNT_ENTERED_BY_WH_OPERATOR', 'PO_NUMBER', 'BUYER_GSTIN_NUMBER', 'SHIP_TO_ADDRESS',
             'PRODUCT_ID', 'HSN', 'TITLE', 'QUANTITY', 'UNIT_PRICE', 'DISCOUNT_PERCENT', 'SGST_PERCENT',
             'CGST_PERCENT', 'IGST_PERCENT', 'TOTAL_AMOUNT']
+
+        # self.classes = ['DontCare', 'SELLER_NAME', 'SELLER_GSTIN_NUMBER', 
+        #     'TOTAL_INVOICE_AMOUNT_ENTERED_BY_WH_OPERATOR', 'HSN', 'TITLE']
 
         self.num_classes = len(self.classes) 
 
