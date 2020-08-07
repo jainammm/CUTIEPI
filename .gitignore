@@ -6,3 +6,4 @@ __pycache__/
 pretrained_model
 model_for_serving
 .vscode
+/results

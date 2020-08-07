@@ -5,6 +5,7 @@ import numpy as np
 from models.loaddata import DataLoader
 from configs.config import model_params
 from models.CUTIEv1 import CUTIERes as CUTIEv1
+from models.utils import vis_bbox
 
 c_threshold = 0.5
 
@@ -43,6 +44,14 @@ def predict(json_data):
         fetches = [model_output]
 
         [model_output_val] = sess.run(fetches=fetches, feed_dict=feed_dict)
+        
+        shape = data['shape']
+        file_name = data['file_name'][0] # use one single file_name
+        bboxes = data['bboxes'][file_name]
+        vis_bbox(data_loader, './sample', np.array(data['grid_table'])[0], 
+                        np.array(data['gt_classes'])[0], np.array(model_output_val)[0], file_name, 
+                        np.array(bboxes), shape)
+
         model_output_val = np.array(model_output_val)[0]
         logits = model_output_val.reshape([-1, data_loader.num_classes])
 
@@ -53,6 +62,7 @@ def predict(json_data):
 
         data_input_flat = grid_table.reshape([-1])
         labels = gt_classes.reshape([-1])
+
         
         for i in range(len(data_input_flat)):
             if max(logits[i]) > c_threshold:

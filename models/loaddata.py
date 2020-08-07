@@ -23,6 +23,8 @@ class DataLoader:
 
         self.special_dict = {'*', '='} # map texts to specific tokens
         self.encoding_factor = 1 # ensures the size (rows/cols) of grid table compat with the network 
+        self.rows = self.encoding_factor # to be updated 
+        self.cols = self.encoding_factor # to be updated 
         self.segment_grid = params.segment_grid if hasattr(params, 'segment_grid') else False # segment grid into two parts if grid is larger than cols_target
         self.cols_segment = params.cols_segment if hasattr(params, 'cols_segment') else 72
         self.da_extra_rows = params.data_augmentation_extra_rows if hasattr(params, 'data_augmentation_extra_rows') else 0 # randomly expand rows/cols
