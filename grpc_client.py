@@ -7,6 +7,7 @@ from scipy.misc import imread
 import json
 
 import grpc
+import tensorflow as tf
 from tensorflow.contrib.util import make_tensor_proto
 
 from tensorflow_serving.apis import predict_pb2
@@ -35,14 +36,21 @@ def run(host, port, model, signature_name):
     request = predict_pb2.PredictRequest()
     request.model_spec.name = model
     request.model_spec.signature_name = signature_name
-    request.inputs['data_grid'].CopyFrom(make_tensor_proto(data['grid_table'], shape=data['grid_table'].shape))
+    request.inputs['input'].CopyFrom(make_tensor_proto(data['grid_table'], shape=data['grid_table'].shape))
 
     result = stub.Predict(request, 10.0)
+
+    outputs_tensor_proto = result.outputs['output']
+    shape = tf.TensorShape(outputs_tensor_proto.tensor_shape)
+
+    outputs = np.array(outputs_tensor_proto.float_val).reshape(shape.as_list())
+
+    # result = np.array(result)[0]
 
     end = time.time()
     time_diff = end - start
 
-    print(result)
+    print(outputs)
     print('time elapased: {}'.format(time_diff))
 
 
