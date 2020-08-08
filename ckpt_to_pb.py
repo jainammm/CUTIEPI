@@ -2,8 +2,6 @@ import os
 import tensorflow as tf
 import json
 
-
-from models.loaddata import DataLoader
 from configs.config import model_params
 from models.CUTIEv1 import CUTIERes as CUTIEv1
 
