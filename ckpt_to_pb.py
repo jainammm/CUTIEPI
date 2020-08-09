@@ -24,7 +24,6 @@ config = tf.ConfigProto(allow_soft_placement=True)
 graph = tf.Graph()
 with tf.Session(graph=graph, config=config) as sess:
     # Restore from checkpoint
-    print('jainam')
     loader = tf.train.import_meta_graph(trained_checkpoint_prefix + '.meta')
     loader.restore(sess, trained_checkpoint_prefix)
 
